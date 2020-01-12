@@ -1,17 +1,34 @@
-import React from "react"
+import React, { Component } from "react"
 
-const Login = () => {
-    return (
-        <div style={{textAlign: "center"}}>
-            <h1>Sign In</h1>
-            <p>Need an account?</p>
+class Login extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            email: "",
+            password: ""
+        }
+    }
 
-            <input type="email" placeholder="Email" /><br></br>
-            <input type="password" placeholder="Password" /><br></br>
+    handleChange = (event) => {
+        const { name, value } = event.target
+        this.setState({
+            [name]: value
+        })
+    }
 
-            <button>Sign in</button>
-        </div>
-    )
+    render() {
+        return (
+            <div style={{ textAlign: "center" }}>
+                <h1>Sign In</h1>
+                <p>Need an account?</p>
+
+                <input type="email" placeholder="Email" /><br></br>
+                <input type="password" placeholder="Password" /><br></br>
+
+                <button>Sign in</button>
+            </div>
+        )
+    }
 }
 
 
