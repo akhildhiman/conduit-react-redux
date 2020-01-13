@@ -8,7 +8,7 @@ const Header = () => {
     handleClick = (e) => {
         e.preventDefault()
         localStorage.clear()
-        this.props.history.push("/")
+        // this.props.history.push("/")
     }
 
     return (
