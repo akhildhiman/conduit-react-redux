@@ -1,8 +1,13 @@
 import { combineReducers } from "redux"
-import { registerReducer } from "../reducers/auth"
+import { authReducer } from "../reducers/auth"
+import { articleReducer } from "../reducers/articles"
+import { tagReducer } from "../reducers/tags"
+import { registrationReducer } from "../reducers/registration"
+
 
 const rootReducer = combineReducers({
-    registerReducer
+    registrationReducer, authReducer, articleReducer, tagReducer
 })
+
 
 export default rootReducer

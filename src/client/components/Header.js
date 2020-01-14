@@ -1,38 +1,46 @@
-import React from 'react';
-import { Link } from "react-router-dom"
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
+import { Link, withRouter } from "react-router-dom"
+import { connect } from "react-redux"
+import { compose } from "redux"
 
 
-const Header = () => {
+class Header extends Component {
 
-    handleClick = (e) => {
-        e.preventDefault()
-        localStorage.clear()
-        // this.props.history.push("/")
+    render() {
+        console.log(this.props.authReducer.isAuthenticated)
+        return (
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div>
+                    Conduit
+                </div>
+                <div>
+                    {
+                        this.props.authReducer.isAuthenticated ?
+                            <div>
+                                <Link to="/">Home</Link>
+                                <Link to="/login">New Article</Link>
+                                <Link to="/register">Settings</Link>
+                                {/* <span>{this.props.authReducer.user.usename}</span> */}
+                            </div>
+                            :
+                            <div>
+                                <Link to="/">Home</Link>
+                                <Link to="/login">Sign in</Link>
+                                <Link to="/register">Sign up</Link>
+                            </div>
+                    }
+                </div>
+            </div>
+        );
     }
-
-    return (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <div>
-                Conduit
-            </div>
-            <div>
-                <Link to="/">Home</Link>
-                <Link to="/login">Sign in</Link>
-                <Link to="/register">Sign up</Link>
-                {
-                    localStorage.authToken ?
-                    <button onClick={this.handleClick}>Logout</button>
-                    :
-                    null
-                }
-            </div>
-        </div>
-    );
 }
-
 
 const mapStateToProps = (store) => {
     return store
 }
-export default connect(mapStateToProps)(Header) 
+
+
+export default compose(
+    withRouter,
+    connect(mapStateToProps)
+)(Header);

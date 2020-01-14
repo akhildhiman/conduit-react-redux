@@ -26,17 +26,19 @@ class Login extends Component {
             return alert("Email or password is invalid")
         }
         const loginData = { user: this.state }
-        this.props.dispatch(loginAction(loginData))
-        this.props.history.push("/")
+        this.props.dispatch(loginAction(loginData) , () => {
+            this.props.history.push("/") 
+        })
     }
 
     render() {
+        const isAuthInProgress = this.props.authReducer.isAuthInProgress        
         return (
             <div style={{ textAlign: "center" }}>
                 <h1>Sign In</h1>
                 <p>Need an account?</p>
 
-                <input onChange={this.handleChange}
+                <input onChange={this.handleChange} 
                     type="email"
                     name="email"
                     value={this.state.email}
@@ -52,7 +54,12 @@ class Login extends Component {
                 />
                 <br></br>
 
-                <button type="submit" onClick={this.handleSubmit}>Sign in</button>
+                {
+                    isAuthInProgress ?
+                        <p>Logging in.....</p>
+                        :
+                        <button type="submit" onClick={this.handleSubmit}>Submit</button>
+                }
             </div>
         )
     }

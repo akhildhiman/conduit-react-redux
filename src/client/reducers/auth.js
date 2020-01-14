@@ -1,17 +1,22 @@
 const initState = {
+    isAuthInProgress: false,
+    isAuthenticated: false,
+    authError: null,
     user: null
 }
 
-export const registerReducer = (state=initState, action) => {
-    console.log("inside registerReducer")
-    switch(action.type) {
-        case "REGISTER_USER":
-            return {...state, user: action.data.user}
-        default: 
+export const authReducer = (state = initState, action) => {
+    switch (action.type) {
+        case "AUTH_STARTS":
+            return { ...state, isAuthInProgress: true, authError: null }
+        case "AUTH_SUCCESS":
+            return { ...state, isAuthInProgress: false, authError: null, isAuthenticated: true, user: action.data.user }
+        case "AUTH_ERROR":
+            return { ...state, isAuthInProgress: false, authError: action.data.error, isAuthenticated: false, user: null }
+        default:
             return state
     }
 }
-
 
 
 

@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { registerAction } from "../actions/auth"
+import { registerAction } from "../actions/registration"
 import { connect } from "react-redux"
 import validator from "validator"
 
@@ -19,8 +19,8 @@ class Register extends Component {
     }
 
     handleSubmit = (event) => {
-        console.log("inside handle submit")
-        const {username, email, password} = this.state
+        // console.log("inside handle submit")
+        const { username, email, password } = this.state
         if (!email || !password || !username) {
             return alert("Usename, email and password are must")
         }
@@ -41,6 +41,9 @@ class Register extends Component {
 
     render() {
         // console.log(this.props)
+        const isRegistrationInProgress = this.props.registrationReducer.isRegistrationInProgress
+        // console.log(this.props.registrationReducer.user)
+        // console.log(isRegistrationInProgress)
         return (
             <div style={{ textAlign: "center" }}>
                 <h1>Sign Up</h1>
@@ -70,8 +73,12 @@ class Register extends Component {
                     placeholder="Password"
                 />
                 <br></br>
-
-                <button type="submit" onClick={this.handleSubmit}>Sign up</button>
+                {
+                    isRegistrationInProgress ?
+                        <p>Registering....</p>
+                        :
+                        <button type="submit" onClick={this.handleSubmit}>Sign up</button>
+                }
             </div>
         )
     }
